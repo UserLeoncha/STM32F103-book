@@ -2,12 +2,17 @@
 
 \title{hello STM32F103}
 
-\author{Leon_cha凉茶}
+\author{Leoncha凉茶}
+
 \date{\today}
 
 \begin{document}
 
 \begin{abstract}
+什么是单片机？
+我们知道，单片机是一块PCB板，由一块主控芯片，一些必备的模块和一些外设，传感器组成，有时这些板子上还带有裸露的接口，这是我们就可以自由的把一些传感器连接到IO口上。
+
+
 对于初学者来说，STM32系列单片机内容繁杂，难以为继，尤其是51都没有搞清楚的小朋友。这是一个致命的问题。首先，要搞清楚STM32由哪些部分构成，都有什么作用，有哪些应用？对于软件、云服务、物联网、机器人，STM32在这些行业中处于怎样的生态位，起到什么作用。
 
 STM32F103系列开发板
@@ -46,7 +51,7 @@ STM32开发环境搭建、GPIO精讲、原理图
 \section{按键输入}
 通过配置GPIO捕获按键按下产生的电信号
 GPIO，NVIC，按键去抖
-\subsection{内容讲解}
+\subsection{内容概述}
 \subsubsection{NVIC}
 ARM Cortex-M3架构 NVIC
 \subsection{流程概述}
@@ -63,12 +68,13 @@ AHB、APB1/APB2、sysclk、systick
 
 
 
+
 \section{流水灯}
 使用Timer来控制小灯
 \subsection{内容概述}
 点灯、NVIC、精讲时钟树、Timer(定时器)
 精讲时钟树！
-
+\subsection{流程概述}
 
 
 \section{PWM电机控制}
