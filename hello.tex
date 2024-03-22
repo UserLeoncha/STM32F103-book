@@ -1,19 +1,25 @@
 \documentclass[UTF8]{ctexart}
 
-\title{hello STM32F103}
-
-\author{Leon_cha凉茶}
+\title{Hello STM32F103}
+\author{Leoncha凉茶}
 \date{\today}
 
 \begin{document}
+\maketitle
+\centering{生存与发展是第一要务}
+\newpage
 
 \begin{abstract}
-对于初学者来说，STM32系列单片机内容繁杂，难以为继，尤其是51都没有搞清楚的小朋友。这是一个致命的问题。首先，要搞清楚STM32由哪些部分构成，都有什么作用，有哪些应用？对于软件、云服务、物联网、机器人，STM32在这些行业中处于怎样的生态位，起到什么作用。
+这是一本为大学生，高中毕业生，单片机初学者，对学习单片机感到无力的人所写的书，如果你不知道该怎么学习，对学习产生了消极情绪，对自己的能力期望过高，请耐心读下去。
 
-STM32F103系列开发板
-STM32F103芯片、F103板上资源、ARM Cortex-M3架构相关知识（ARM系列处理器的特点，中断触发，寄存器，总线结构）、Keil编译器、STMCubeMX、Linux下开源开发库libopencm3、ST-Link/J-Link、DEBUG、UCOSII、RTOS、SRAM、FLASH、E2PROM、ARM架构采用哈弗架构、改进哈弗架构、冯诺伊曼架构、看门狗（软件开门狗和硬件看门狗）、RTC时钟、SD卡、PWM波（PWM电机、DAC）、LED/LCD、触摸板库、HAL库、CMSIS
+STM32系列单片机内容繁杂，难以为继，尤其是51都没有搞清楚的小朋友。这是一个致命的问题。首先，要搞清楚STM32由哪些模块组成，可以发挥什么作用，可以搭建什么应用？对于软件、云服务、物联网、机器人以及家用电器领域，STM32在单片机行业中处于怎样的生态位？起到什么作用？
 
-STM32内容：GPIO八种模式、时钟树（四个时钟源，两个高速时钟源，两个低速时钟源，一个PLL时钟源，芯片和板上各有一套高低速时钟源）、NVIC中断（四个特点）、Timer（三种定时器）、总线结构（AHB、APB1、APB2，APB时钟频率是AHB的二分之一）、通信协议（UART、USART、USMART、I2C、SPI、1-wire、RS232、RS485、USB、2.4GHz、bt、esp8266、zigbee、lora、nb-iot）
+知识是信息与相互关系的集合。信息是指经验与总结，是符号；相互关系是指逻辑关系，因果关系。如果想通过前人的总结学会知识，只接收信息是不够的，当你开始询问为什么时，就是在请求逻辑关系与因果关系。
+
+笔者才疏学浅，只能为迷路的初学者指明方向，剩下的一切都要大家自己学习。
+
+下面是模块清单，初学者请跳过：STM32F103芯片、F103板上资源、ARM Cortex-M3架构相关知识（ARM系列处理器的特点，中断触发，寄存器，总线结构）、Keil编译器、STMCubeMX、Linux下开源开发库libopencm3、ST-Link/J-Link、DEBUG、UCOSII、RTOS、SRAM、FLASH、E2PROM、ARM架构采用哈弗架构、改进哈弗架构、冯诺伊曼架构、看门狗（软件开门狗和硬件看门狗）、RTC时钟、SD卡、PWM波（PWM电机、DAC）、LED/LCD、触摸板库、HAL库、CMSIS
+STM32内容：GPIO八种模式、时钟树（四个时钟源，两个高速时钟源，两个低速时钟源，一个PLL时钟源，芯片和板上各有一套高低速时钟源）、NVIC中断（四个特点）、Timer（三种定时器）、总线结构（AHB、APB1、APB2，其中APB时钟频率是AHB的二分之一）、通信协议（UART、USART、USMART、I2C、SPI、1-wire、RS232、RS485、USB、2.4GHz、bt、esp8266、zigbee、lora、nb-iot）、流水线
 \end{abstract}
 
 
@@ -23,8 +29,16 @@ STM32内容：GPIO八种模式、时钟树（四个时钟源，两个高速时�
 STM32开发环境搭建、GPIO精讲、原理图
 \subsection{内容概述}
 \subsubsection{GPIO讲解}
-八种模式，四种输入，四种输出，GPIO不能直接输出模拟信号，但是可以对模拟信号进行定时采样，如何保证采
-样过程中信号不丢失。
+大家在学习、搜集STM32资料时会发现，有的文章中说GPIO有八种工作模式，四种输入，四种输出
+有的说是三种输入、两种输出，这些描述无所谓对错，关注这些就走上岔路了。
+
+GPIO特点鲜明：
+1.GPIO只能输出数字信号，对于连续的信号，也只能定时采样，无法真正接受连续的信号。
+2.GPIO的结构决定了GPIO的工作模式，输入与输出是将GPIO视为了一根从MCU中伸出的铜线。这根铜线存在两种状态，一种是MCU“监听”这根铜线上的“电平”，另一种是MCU为这根铜线设置一个电平；这就是输入与输出。
+3.一组GPIO中，各个端口可以分别设置不同的模式。
+
+STM32F103并不是空中楼阁，在STM32F103之下，有ARM Cortex-M3架构的支持，CMSIS（ARM Cortex微控制器软件接口标准）就是ARM公司推出维护的，ST公司推出的HAL库就建立在这个标准的基础上，很明显，这些标准之间存在立体的上下相互支持关系。
+
 \subsubsection{HAL库}
 什么是HAL库？
 \subsubsection{delay函数}
